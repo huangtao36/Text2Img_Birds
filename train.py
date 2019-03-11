@@ -126,8 +126,8 @@ if __name__ == '__main__':
     d_lr_scheduler = lr_scheduler.StepLR(d_optimizer, 100, args.lr_decay)
 
     # -------------
-    vis = Visualizer(server='http://110.65.102.123',
-                     port=1128,
+    vis = Visualizer(server='http://your_ip',
+                     port=8097,  # your port
                      env='Text2Img_birds')
     lossG_meter = meter.AverageValueMeter()
     # -------------
