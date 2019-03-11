@@ -26,6 +26,7 @@ DEVICE = torch.device('cuda: 0' if torch.cuda.is_available() else 'cpu')
 
 
 if __name__ == '__main__':
+    mkdirs(args.output_root)
 
     print('Loading a pretrained fastText model...')
     word_embedding = FastText(args.fasttext_model)
@@ -44,7 +45,7 @@ if __name__ == '__main__':
     G.to(DEVICE)
 
     transform = transforms.Compose([
-        transforms.Scale(74),
+        transforms.Resize(74),
         transforms.CenterCrop(64),
         transforms.ToTensor()
     ])
@@ -92,7 +93,7 @@ if __name__ == '__main__':
         save_image((output.data + 1) * 0.5, os.path.join(args.output_root, out_filename))
         html += '\n<tr><td>{}</td><td><img src="{}"></td></tr>'.format(txt, out_filename)
 
-    mkdirs(args.output_root)
+
     with open(os.path.join(args.output_root, 'index.html'), 'w') as f:
         f.write(html)
     print('Done. The results were saved in %s.' % args.output_root)
